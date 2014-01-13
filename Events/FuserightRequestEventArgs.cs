@@ -15,9 +15,10 @@ namespace IHI.Server.Events
         public FuserightEventArgs(Habbo habbo) : base(habbo)
         {
             _fuserights = new HashSet<string>();
+            Cancellable = false;
         }
 
-        public ICollection<string> GetFuserights()
+        public ISet<string> GetFuserights()
         {
             return _fuserights;
         }
