@@ -13,16 +13,7 @@ namespace IHI.Server.Plugins
     public class PluginManager
     {
         private readonly Dictionary<string, Plugin> _plugins = new Dictionary<string, Plugin>();
-
-        /// <summary>
-        /// Removed (To be rewritten) - Reason: Wrong documention is worse than none.
-        /// </summary>
-        public Plugin GetPlugin(string path)
-        {
-            if (_plugins.ContainsKey(path))
-                return _plugins[path];
-            return null;
-        }
+        private readonly HashSet<string> _loadedPluginPaths = new HashSet<string>(); 
 
         /// <summary>
         ///   Start a plugin.
@@ -63,9 +54,11 @@ namespace IHI.Server.Plugins
                 return null;
             }
 
+            _loadedPluginPaths.Add(path);
+
             Plugin pluginInstance = Activator.CreateInstance(specificPluginType) as Plugin;
 
-            _plugins.Add(path, pluginInstance);
+            _plugins.Add(pluginInstance.Id, pluginInstance);
 
             return pluginInstance;
         }
@@ -85,6 +78,17 @@ namespace IHI.Server.Plugins
         public IEnumerable<Plugin> GetLoadedPlugins()
         {
             return _plugins.Values;
+        }
+
+        public Plugin this[string pluginId]
+        {
+            get
+            {
+                Plugin value;
+                if (_plugins.TryGetValue(pluginId, out value))
+                    return value;
+                return null;
+            }
         }
     }
 }

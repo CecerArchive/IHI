@@ -7,6 +7,7 @@ namespace IHI.Server.Plugins
     public abstract class Plugin
     {
         internal ManualResetEvent StartedResetEvent = new ManualResetEvent(false);
+        public abstract string Id { get; }
         public abstract string Name { get; }
 
         /// <summary>
