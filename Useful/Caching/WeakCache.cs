@@ -21,7 +21,7 @@ namespace IHI.Server.Useful
 
         #region Methods
         #region Method: WeakCache (Constructor)
-        internal WeakCache(Func<TKey, TValue> instanceGenerator)
+        public WeakCache(Func<TKey, TValue> instanceGenerator)
         {
             _weakCacheWeakReferenceBehaviour = new BluedotDictionary<TKey, TValue>.WeakReferenceBehaviour(true);
             _weakCacheLazyLoadingBehaviour = new BluedotDictionary<TKey, TValue>.LazyLoadingBehaviour(true, true, instanceGenerator);
@@ -33,7 +33,7 @@ namespace IHI.Server.Useful
 
         #region Indexers
         #region Indexer: TKey
-        internal TValue this[TKey index]
+        public TValue this[TKey index]
         {
             get
             {
@@ -49,14 +49,14 @@ namespace IHI.Server.Useful
 
         #region Methods
         #region Method: ContainsKey
-        internal bool ContainsKey(TKey key)
+        public bool ContainsKey(TKey key)
         {
             return _cache.ContainsKey(key);
         }
         #endregion
 
         #region Method: Add
-        internal WeakCache<TKey, TValue> Add(TKey key, TValue value)
+        public WeakCache<TKey, TValue> Add(TKey key, TValue value)
         {
             _cache.Add(key, value);
             return this;
